@@ -10,7 +10,6 @@ class QA:
     def __call__(self, text, smart=True) -> str:
         if not smart:
             return text
-        print(text)
         input_ids = self.tokenizer(
             [text],
             max_length=600,

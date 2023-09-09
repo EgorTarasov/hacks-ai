@@ -15,22 +15,11 @@ class MLPipeLine:
             compute_type="float32"
         )
     
-    def get_errors(self, query: str, train_name: str, index: int = 0, useSpeachToText: bool = True):
+    def get_errors(self, query: str, train_name: str, useSpeachToText: bool = True):
         data = (None, None)
         if useSpeachToText:
             data = self.pipe(query, train_name)
-            
         else:
             data = self.pipe(query, train_name, useSpeachToText)
-
-        return data[0], data[1]
+        return [data[0][i] for i in range(0, 3)], data[1]
     
-    # def generate(self, data: dict[str, str|list[str]]) -> str:
-    #     er_re =data["reasons"], data["solutions"]
-    #     print(er_re)
-    #     msg = f'**{data["problem"]}**'
-    #     for i, v in enumerate(data["reasons"]):
-    #         msg += v + "\n\n" + data["solutions"] 
-    #     logging.debug(msg)
-
-    #     return msg

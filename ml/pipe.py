@@ -4,6 +4,8 @@ from faster_whisper import WhisperModel
 from ml.search import Search
 from ml.qa import QA
 import uuid
+import re
+from num2words import num2words
 
 
 appendix_map = {
@@ -83,7 +85,7 @@ class Output:
     def __getitem__(self, idx):
         if idx > len(self.top_k):
             raise IndexError
-
+        
         idx = self.top_k[idx]["uniq_id"]
         problem = self.data.loc[idx, "problem"]
         problem_id = self.data.loc[idx, "problem_id"]
@@ -95,43 +97,44 @@ class Output:
         return text
 
     def _generate_prompt(self, problem: str, reason: list[str], solution: list[str], problem_id: int, appendix: int):
+        
         reason = "\n".join([f"{i+1}. {v}" for i, v in enumerate(reason)])
         solution = "\n".join([f"{i+1}. {v}" for i, v in enumerate(solution)])
-
         text = f"Приложение №{appendix}, неисправность №{problem_id}: {problem}\n\nВероятные причины:\n{reason}.\n\nМетоды устранения:\n{solution}."
+
         return text
 
 class Text2Speech:
     def __init__(self):
-        
-        from transformers import (
-            T5ForConditionalGeneration,
-            PreTrainedTokenizerFast,
-        )
         from RUTTS import TTS
-        from ruaccent import RUAccent
-
-        model_path = "maximxls/text-normalization-ru-terrible"
-
-        self.tokenizer = PreTrainedTokenizerFast.from_pretrained(model_path)
-        self.model = T5ForConditionalGeneration.from_pretrained(model_path)
-
+        from num2words import num2words
+        import re
 
         self.tts = TTS("TeraTTS/natasha-g2p-vits")
 
-
+        from ruaccent import RUAccent
         self.accentizer = RUAccent(workdir="./model")
         self.accentizer.load(omograph_model_size='medium', dict_load_startup=False)
         
     def __call__(self, example_text):
-        inp_ids = self.tokenizer(
-            example_text,
-            return_tensors="pt",
-        ).input_ids
-        out_ids = self.model.generate(inp_ids, max_new_tokens=128)[0]
-        out = self.tokenizer.decode(out_ids, skip_special_tokens=True)
-        out = self.accentizer.process_all(out)
+        out = self.replace_numbers_with_words(example_text)
+        # out = self.accentizer.process_all(out)
+        print(out)
         audio = self.tts(out)
         file_name = f"data/out-{str(uuid.uuid4())}.wav"
         self.tts.save_wav(audio, file_name)
         return file_name
+    
+    def replace_numbers_with_words(self, text):
+        # Regular expression pattern to match numbers
+        pattern = r'\d+'
+        
+        # Find all the numbers in the text using the pattern
+        numbers = re.findall(pattern, text)
+        
+        # Replace each number with its word representation
+        for number in numbers:
+            word = num2words(int(number), lang='ru')
+            text = text.replace(number, word)
+        
+        return text

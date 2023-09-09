@@ -1,3 +1,4 @@
+wheel
 sentence_transformers
 transformers
 cherche 
@@ -6,9 +7,10 @@ sqlalchemy
 pydantic
 pydantic_settings
 faster_whisper
-
+httpx
 numpy==1.24
 RUTTS
 fastapi
 uvicorn
 python-multipart
+num2words
