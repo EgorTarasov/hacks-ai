@@ -1,0 +1,8 @@
+venv/
+model/
+*.sqlite
+.vscode/
+__pycache__/
+data/
+.DS_Store
+.idea/

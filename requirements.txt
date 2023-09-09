@@ -1,0 +1,14 @@
+sentence_transformers
+transformers
+cherche 
+aiogram
+sqlalchemy
+pydantic
+pydantic_settings
+faster_whisper
+
+numpy==1.24
+RUTTS
+fastapi
+uvicorn
+python-multipart
