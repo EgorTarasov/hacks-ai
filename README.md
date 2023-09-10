@@ -1,5 +1,15 @@
+
+
+
 # Установка
 
+Для начала вам потребуется скачать репозиторий с помощью git
+
+
+```bash
+git clone https://github.com/EgorTarasov/hacks-ai.git
+
+```
 <!-- add requirements to readme -->
 
 ## Подготовка окружкния
