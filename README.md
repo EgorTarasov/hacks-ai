@@ -12,7 +12,7 @@ git clone https://github.com/EgorTarasov/hacks-ai.git
 ```
 <!-- add requirements to readme -->
 
-## Подготовка окружкния
+## Подготовка окружения
 
 данное рещение использует python 3.10
 
