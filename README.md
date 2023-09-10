@@ -64,3 +64,6 @@ python3 api.py
 ```bash
 python3 validate.py
 ```
+Полученые метрики:  
+**WER - 0.14**  
+**Accuracy - 0.93** 
