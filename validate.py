@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 from ml.pipe import Pipe
+from ml.audio.wer import wer
 
 
 def accuracy(train_df, test_df, embeds):
@@ -22,4 +23,7 @@ def accuracy(train_df, test_df, embeds):
 
 
 if __name__ == "__main__":
-    print(accuracy("ml/train.csv", "ml/val.csv", "ml/embeds.pkl"))
+    acc_metric = accuracy("ml/train.csv", "ml/val.csv", "ml/embeds.pkl")
+    wer_metric = wer("ml/audio/t3.csv", "ml/audio/t3_clean_for_stt/", "cuda")
+
+    print(f"Accuracy: {acc_metric}\nWER: {wer_metric}")
