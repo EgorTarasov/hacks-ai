@@ -1,7 +1,7 @@
-FROM python:3.11.2-buster
+FROM python:3.10.9
 
 RUN pip install --upgrade pip
-RUN 
+
 
 # Select working directory
 WORKDIR /code
@@ -10,15 +10,14 @@ WORKDIR /code
 COPY requirements.txt requirements.txt
 
 
-# Install dependencies
-RUN pip install -r requirements.txt
-
 # Copy source code to working directory
 COPY . /code
-RUN chmodx a+x /code/run.sh
 
 # Create data directory
 RUN mkdir -p /data/logs
+# Install dependencies
+RUN pip install -r requirements.txt
+RUN apt-get install PortAudio -y
 
 # Run the application
-CMD ["./code/run.sh"]
+CMD ["python3", "api.py"]
