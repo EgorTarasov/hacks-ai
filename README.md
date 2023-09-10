@@ -1,3 +1,53 @@
+# Установка
+
+<!-- add requirements to readme -->
+
+## Подготовка окружкния
+
+данное рещение использует python 3.10
+
+### linux (ubuntu):
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Установка зависимостей
+
+для работы с аудио необходимо установить ffmpeg и PortAudio
+
+macos (homebrew):
+
+```bash
+    brew install ffmpeg portaudio
+```
+
+linux (apt):
+
+```bash
+    sudo apt install ffmpeg portaudio
+```
+
+```bash
+    pip3 install -r requirements.txt
+```
+
+## Запуск
+
+для запуска бота необходимо запустить main.py
+
+```bash
+python3 main.py
+```
+
+для запуска api необходимо запустить api.py
+
+```bash
+python3 api.py
+```
+
+
 ## Архитектура решения
 1) Для каждой серии локомотива генерируем свою базу эмбеддингов для неисправностей с помощью ranking модели (distilbert-multilingual-nli-stsb-quora-ranking). 
 2) Входящее аудио преобразуем в текст с помощью whisper
