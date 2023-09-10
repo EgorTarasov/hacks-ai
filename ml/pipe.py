@@ -113,7 +113,7 @@ class Output:
     ):
         reason = "\n".join([f"{i+1}. {v}" for i, v in enumerate(reason)])
         solution = "\n".join([f"{i+1}. {v}" for i, v in enumerate(solution)])
-        text = f"Приложение №{appendix}, неисправность №{problem_id}: {problem}\n\nВероятные причины:\n{reason}.\n\nМетоды устранения:\n{solution}."
+        text = f"Приложение №{appendix}, неисправность №{problem_id}: {problem}.\n\nВероятные причины:\n{reason}.\n\nМетоды устранения:\n{solution}."
 
         return text
 
